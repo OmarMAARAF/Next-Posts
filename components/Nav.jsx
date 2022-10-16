@@ -16,12 +16,10 @@ export default function Nav() {
   const Router = useRouter()
 
   useEffect(()=>{
-    if(!loading){
-      if(!user){
+    if (!loading && !user){
         Router.push("./auth/Login")
-      }
     }
-  },[user])
+  },[user, loading])
 
   const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
