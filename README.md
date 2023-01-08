@@ -2,10 +2,10 @@
 <p>This app allows users to log in with Facebook or Google, create posts, and view and comment on other people's posts. It is built using <a href="https://nextjs.org/">Next.js</a> and utilizes <a href="https://firebase.google.com/">Firebase</a> for authentication and <a href="https://firebase.google.com/docs/firestore">Firestore</a> for storing and querying data. The app is styled using <a href="https://tailwindcss.com/">Tailwind CSS</a>.</p>
 <h2>Screenshots</h2>
 <p float="left">
-  <img src="./assets/screenshots/login.png" width="200" />
-  <img src="./assets/screenshots/home.png" width="200" /> 
-  <img src="./assets/screenshots/newPost.png" width="200" />
-  <img src="./assets/screenshots/profil.png" width="200" />
+  <img src="./assets/screenshots/login.png"  />
+  <img src="./assets/screenshots/home.png"  /> 
+  <img src="./assets/screenshots/newPost.png"  />
+  <img src="./assets/screenshots/profil.png"  />
 </p>
 <h2>Prerequisites</h2>
 <p>To run this app locally, you will need to have the following installed on your machine:</p>
