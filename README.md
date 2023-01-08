@@ -6,4 +6,12 @@
   <li><a href="https://nodejs.org/">Node.js</a></li>
   <li><a href="https://yarnpkg.com/">Yarn</a> (optional, but recommended)</li>
 </ul>
-<p>You will also need to create a Firebase project and set up Facebook and Google as sign-in providers. Follow the instructions <a href="https://firebase.google.com/docs/auth/web/facebook-login">here</a> and <a href="https://firebase.google.com/docs/auth/web/google-login">here</a> to do this.</p>
+<h2>Deployment</h2>
+
+<p>To deploy the app, you can follow the instructions for <a href="https://nextjs.org/docs/deployment">deploying a Next.js app to Vercel</a>. Make sure to set the environment variables in your Vercel project as well.</p>
+
+<p>Alternatively, you can deploy the app to any other hosting provider that supports Node.js.</p>
+
+<h2>License</h2>
+
+<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
