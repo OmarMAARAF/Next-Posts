@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.login {
+    background-image: url(./../assets/img/register_bg_2.4f2cb0ac.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: left top;
+}
+
+.emptyState {
+    background-image: url(./../assets/img/EmptyState.png);
+    background-size: 100%;
+}

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { auth, db } from "../utils/firebase";
 import { toast } from "react-toastify";
 import { arrayUnion, doc, getDoc, onSnapshot, Timestamp, updateDoc } from "firebase/firestore";
+import Nav from "../components/Nav";
 export default function Details() {
   const Router = useRouter();
   const routeData = Router.query;
@@ -40,35 +41,44 @@ export default function Details() {
     getComment()
   },[Router.isReady])
   return (
-    <div className="mx-3">
-      <Message {...routeData}></Message>
+    <div className="bg-[#1e293b] min-h-[100vh] ">
+    <Nav />
+    <div >
+    <div className=" flex flex-col gap-3 items-center ">
+      <Message {...routeData} ></Message>
+      </div>
       <div className="my-4  ">
-        <div className="flex">
+        
+        <div className="py-6  ">
+          <h2 className="font-bold text-white mx-3">Comments</h2>
+          <div className="flex items-center flex-col gap-4 w-[100%]">
+          {allMessages?.map((message) => (
+            
+            <div className="bg-[#e2e8f0] p-4  border-2   rounded-md  w-[80%]" key={message.time}>
+              <div className="flex gap-4 items-center mb-4">
+                <img src={message.avatar}  className="w-10 rounded-full" referrerPolicy='no-referrer'/>
+                <h2 className="text-sm"> {message.username}</h2>
+              </div>
+              <h2 className="break-all">{message.message}</h2>
+            </div>
+          ))}
+          <div className="flex  items-center w-[80%]">
           <input
             type="text"
             value={message}
-            placeholder="Send a message 😀"
+            placeholder="Write a new comment 😀"
             onChange={(e) => setMessage(e.target.value)}
-            className="bg-gray-800 w-full p-2 text-white text-sm"
+            className="bg-[#e2e8f0] w-full  center  text-sm p-2 "
           />
-          <button className="bg-cyan-500 text-white py-2 px-4 text-sm" onClick={submitMessage}>
-            Submit
+          <button className="bg-[#6B728E] text-white py-2 px-4 text-sm p-3" onClick={submitMessage}>
+            Send
           </button>
         </div>
-        <div className="py-6 ">
-          <h2 className="font-bold">Comments</h2>
-          {allMessages?.map((message) => (
-            <div className="bg-white p-4 my-4 border-2" key={message.time}>
-              <div className="flex gap-4 items-center mb-4">
-                <img src={message.avatar}  className="w-10 rounded-full"/>
-                <h2 className="text-sm"> {message.username}</h2>
-              </div>
-              <h2>{message.message}</h2>
-              
-            </div>
-          ))}
+          </div>
         </div>
+        
       </div>
+    </div>
     </div>
   );
 }

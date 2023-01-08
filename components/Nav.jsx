@@ -13,15 +13,17 @@ import MenuList from '@mui/material/MenuList';
 
 export default function Nav() {
   const [user, loading] = useAuthState(auth);
+  console.log(user)
   const Router = useRouter()
 
-  useEffect(()=>{
-    if(!loading){
-      if(!user){
-        Router.push("./auth/Login")
-      }
+  const checkUser =()=>{
+    if(!user){
+      Router.push("./auth/Login")
     }
-  },[user])
+  }
+  useEffect(()=>{
+      checkUser()
+  },[user,loading])
 
   const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
@@ -63,15 +65,12 @@ export default function Nav() {
       }
       setOpen(false);
       auth.signOut();
-      
-
-
     }
 
 
 
   return (
-    <div>
+    <div className='text-white mb-3 bg-[#1e293b]' >
     <nav className=' flex justify-between items-center h-[50px] py-10 mx-3' >
       
         <Link href="/"><button className='text-lg font-meduim'>Creative Minds</button></Link>
@@ -83,15 +82,16 @@ export default function Nav() {
       {user&&(
        <div className='flex gap-6 items-center'>
         <Link href={"/Post"}>
-        <button className='font-medium bg-cyan-500 text-white py-2 px-4 rounded-lg'>
-          Post
+        <button className='font-medium bg-[#6B728E] text-white py-2 px-4 rounded-lg'>
+          New post
         </button></Link>
         <img src={user.photoURL} className="rounded-full w-10 cursor-pointer" ref={anchorRef}
             id="composition-button"
             aria-controls={open ? 'composition-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
-            onClick={handleToggle}/>
+            onClick={handleToggle}
+            referrerPolicy='no-referrer'/>
         <div>
           
           <Popper
@@ -118,8 +118,7 @@ export default function Nav() {
                       aria-labelledby="composition-button"
                       onKeyDown={handleListKeyDown}
                     >
-                      <MenuItem onClick={handleClose}>{user.displayName}</MenuItem>
-                      <Link href={"/Dashboard"}><MenuItem onClick={handleClose}>Dashboard</MenuItem></Link>
+                      <Link href={"/Dashboard"}><MenuItem onClick={handleClose}>{user.displayName}</MenuItem></Link>
                       <MenuItem onClick={signOut}>Logout</MenuItem>
                     </MenuList>
                   </ClickAwayListener>

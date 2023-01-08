@@ -1,13 +1,28 @@
 import React, { useEffect } from 'react'
-import { GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup,FacebookAuthProvider,updateProfile} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../utils/firebase";
-import {FcGoogle} from "react-icons/fc"
+import {BsFacebook,BsGoogle} from"react-icons/bs"
 import { useRouter } from 'next/router'
 export default function Login() {
     const googgleProvider = new GoogleAuthProvider();
     const [user, loading] = useAuthState(auth);
     const Router = useRouter()
+    //sign in with facebook
+  const fbProvider =new FacebookAuthProvider();
+  const FacebookLogin = async () => {
+    try {
+      const result =await signInWithPopup(auth, fbProvider)
+      const credantial = await FacebookAuthProvider.credentialFromResult(result)
+      const token =credantial.accessToken;
+      let photoUrl =result.user.photoURL + "?height=500&access_token="+token
+      await updateProfile (auth.currentUser,{photoURL:photoUrl})
+      console.log(result)
+      Router.push("../Dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  }
     useEffect (()=>{
       if(user){
         Router.push("../Dashboard")
@@ -23,15 +38,19 @@ export default function Login() {
         }
     }
   return (
-    <div className='shadow-xl mt-32 mx-3 p-10 flex flex-col gap-4 text-gray-700 items-center'>
-      <h2 className='text-2xl font-meduim '>Join Today</h2>
-      <div className='py-4 flex items-center flex-col'>
+    <div className='login shadow-xl flex flex-col gap-4 text-gray-700 items-center justify-center h-screen bg-[#1e293b] '>
+      <div className='flex flex-col gap-4 items-center bg-[#e2e8f0] p-5 rounded-lg'>
+        <h2 className='text-2xl font-meduim '>Join Today</h2>
+      <div className='py-4 flex items-center flex-col w-[400px]' >
         <h3>
           Sign in with one of the provider
         </h3>
-        <button className='text-xl bg-gray-700 text-white w-[400px]  p-3 rounded-md my-4 font-medium flex  justify-center'onClick={GoogleLogin}><FcGoogle size={30} className="mx-3"></FcGoogle> Sign in  With Google</button>
+        <button className=' bg-[#f26052] text-white w-[350px]  p-2 rounded-md my-4 font-medium flex  justify-center cursor-pointer'onClick={GoogleLogin}><BsGoogle size={25} className="mx-3"></BsGoogle> <p>Sign in  With Google</p> </button>
+        <button className=' bg-[#527bcc] text-white w-[350px]  p-2 rounded-md my-2 font-medium flex  justify-center cursor-pointer'onClick={FacebookLogin}><BsFacebook size={25} className="mx-3"></BsFacebook> <p>Sign in  With Facebook</p> </button>
       </div>
         
+      </div>
+      
     </div>
   )
 }
